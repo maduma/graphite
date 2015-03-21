@@ -20,7 +20,7 @@ SECRET_KEY = 'thisisthegraphitesecretkey'
 # Set your local timezone (Django's default is America/Chicago)
 # If your graphs appear to be offset by a couple hours then this probably
 # needs to be explicitly set to your local timezone.
-TIME_ZONE = 'Europe/Luxembourg'
+TIME_ZONE = '__TIMEZONE__'
 
 # Override this to provide documentation specific to your Graphite deployment
 #DOCUMENTATION_URL = "http://graphite.readthedocs.org/"
