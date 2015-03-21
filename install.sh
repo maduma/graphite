@@ -61,7 +61,7 @@ mv /opt/grafana-1.9.1 /opt/grafana
 
 ## graphite
 TIMEZONE=`svcprop -p timezone/localtime svc:/system/timezone:default`
-sed "s/__TIMEZONE__/$TIMEZONE/" config/local_settings.py > /opt/graphite/webapp/graphite/local_settings.py
+sed "s#__TIMEZONE__#$TIMEZONE#" config/local_settings.py > /opt/graphite/webapp/graphite/local_settings.py
 cp config/app_settings.py /opt/graphite/webapp/graphite/app_settings.py
 cp config/graphite.wsgi /opt/graphite/conf/graphite.wsgi
 cp config/carbon.conf /opt/graphite/conf/carbon.conf
