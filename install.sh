@@ -1,5 +1,5 @@
 # service url - change it to your needs
-RESOURCE_NAME=sandbox.svr.luxair
+RESOURCE_NAME=sandbox.maduma.com
 
 # local repository for tar files
 LOCAL_REPO=$PWD/repo
