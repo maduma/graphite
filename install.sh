@@ -1,7 +1,12 @@
-# service url
+# service url - change it to your needs
 RESOURCE_NAME=sandbox.svr.luxair
 
-# copy those file in the repo directory
+# local repository for tar files
+LOCAL_REPO=$PWD/repo
+
+# download tar file in the repo directory
+# if you don't have access to internet,
+# you may download manualy the files and put them in a local repository named 'repo'
 #
 # django-tagging-0.3.4.tar.gz
 # txAMQP-0.6.2.tar.gz
@@ -10,15 +15,17 @@ RESOURCE_NAME=sandbox.svr.luxair
 # whisper-0.9.13.tar.gz
 # elasticsearch-1.4.4.zip
 # grafana-1.9.1.zip
-LOCAL_REPO=$PWD/repo
-mkdir -p $LOCAL_REPO
-(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/d/django-tagging/django-tagging-0.3.4.tar.gz)
-(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/t/txAMQP/txAMQP-0.6.2.tar.gz)
-(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/c/carbon/carbon-0.9.13.tar.gz)
-(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/g/graphite-web/graphite-web-0.9.13.tar.gz)
-(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/w/whisper/whisper-0.9.13.tar.gz)
-(cd $LOCAL_REPO && wget http://grafanarel.s3.amazonaws.com/grafana-1.9.1.zip)
-(cd $LOCAL_REPO && wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.4.zip)
+#
+if [ ! -d $LOCAL_REPO ]; then
+	mkdir -p $LOCAL_REPO
+	(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/d/django-tagging/django-tagging-0.3.4.tar.gz)
+	(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/t/txAMQP/txAMQP-0.6.2.tar.gz)
+	(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/c/carbon/carbon-0.9.13.tar.gz)
+	(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/g/graphite-web/graphite-web-0.9.13.tar.gz)
+	(cd $LOCAL_REPO && wget https://pypi.python.org/packages/source/w/whisper/whisper-0.9.13.tar.gz)
+	(cd $LOCAL_REPO && wget http://grafanarel.s3.amazonaws.com/grafana-1.9.1.zip)
+	(cd $LOCAL_REPO && wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.4.zip)
+fi
 
 # solaris packages
 pkg install library/python-2/python-twisted
