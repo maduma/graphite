@@ -1,6 +1,10 @@
 # local repository for tar files
 LOCAL_REPO=$PWD/repo
 
+# utilities
+pkg install wget
+pkg install unzip
+
 # download tar file in the repo directory
 # if you don't have access to internet,
 # you may download manualy the files and put them in a local repository named 'repo'
