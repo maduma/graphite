@@ -1,6 +1,3 @@
-# service url - change it to your needs
-RESOURCE_NAME=sandbox.home.maduma.com
-
 # local repository for tar files
 LOCAL_REPO=$PWD/repo
 
@@ -62,20 +59,20 @@ mv /opt/grafana-1.9.1 /opt/grafana
 ## graphite
 TIMEZONE=`svcprop -p timezone/localtime svc:/system/timezone:default`
 sed "s#__TIMEZONE__#$TIMEZONE#" config/local_settings.py > /opt/graphite/webapp/graphite/local_settings.py
-cp config/app_settings.py /opt/graphite/webapp/graphite/app_settings.py
+cp config/app_settings.py /opt/graphite/webapp/graphite/app_settings.py # add django.contrib.staticfiles app for collecstatic
 cp config/graphite.wsgi /opt/graphite/conf/graphite.wsgi
 cp config/carbon.conf /opt/graphite/conf/carbon.conf
 cp config/storage-schemas.conf /opt/graphite/conf/storage-schemas.conf
 
 ## grafana
-sed "s/__RESOURCE_NAME__/$RESOURCE_NAME/" config/config.js > /opt/grafana/config.js
+cp config/config.js /opt/grafana/config.js
 
 ## apache
-cp config/httpd.conf /etc/apache2/2.2/httpd.conf
-cp config/elasticsearch.conf /etc/apache2/2.2/conf.d/elasticsearch.conf
-cp config/graphite.conf /etc/apache2/2.2/conf.d/graphite.conf
-cp config/graphite-vhost.conf /etc/apache2/2.2/conf.d/graphite-vhost.conf
-cp config/grafana-vhost.conf /etc/apache2/2.2/conf.d/grafana-vhost.conf
+cp config/httpd.conf /etc/apache2/2.2/httpd.conf # listen on 80 and 8080 
+cp config/elasticsearch-proxy.conf /etc/apache2/2.2/conf.d/elasticsearch-proxy.conf
+cp config/graphite-proxy.conf /etc/apache2/2.2/conf.d/graphite-proxy.conf
+cp config/graphite-vhost.conf /etc/apache2/2.2/conf.d/graphite-vhost.conf # port 80
+cp config/grafana-vhost.conf /etc/apache2/2.2/conf.d/grafana-vhost.conf # port 8080
 
 # start mysql
 svcadm enable -s mysql:version_51
@@ -94,7 +91,7 @@ EOF
 # db initialisation
 PYTHONPATH=/opt/graphite/webapp django-admin syncdb --noinput --settings=graphite.settings --noinput
 
-# static file initialisation
+# django static file
 PYTHONPATH=/opt/graphite/webapp django-admin collectstatic --noinput --settings=graphite.settings
 
 # start carbon - /opt/graphite/bin/carbon-cache.py start

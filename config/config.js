@@ -39,11 +39,11 @@ define(['settings'], function(Settings) {
       datasources: {
         graphite: {
           type: 'graphite',
-          url: "http://__RESOURCE_NAME__/graphite",
+          url: "/graphite",
         },
         elasticsearch: {
           type: 'elasticsearch',
-          url: "http://__RESOURCE_NAME__/elasticsearch",
+          url: "/elasticsearch",
           index: 'grafana-dash',
           grafanaDB: true,
         }
