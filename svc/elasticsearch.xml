@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE service_bundle SYSTEM "/usr/share/lib/xml/dtd/service_bundle.dtd.1">
+<service_bundle type='manifest' name='elasticsearch'>
+	<service 
+		name='luxair/elasticsearch'
+		type='service'
+		version='1'>
+		<single_instance />
+		<dependency
+			name='fs-local'
+			grouping='require_all'
+			restart_on='none'
+			type='service'>
+			<service_fmri value='svc:/system/filesystem/local:default' />
+		</dependency>
+		<dependency
+			name='multi-user'
+			grouping='require_all'
+			restart_on='none'
+			type='service'>
+			<service_fmri value='svc:/milestone/multi-user:default' />
+		</dependency>
+		<instance enabled='false' name='default'>
+			<exec_method
+				type='method'
+				name='start'
+				exec='/opt/elasticsearch/bin/elasticsearch -d'
+				timeout_seconds='300'/>
+			<exec_method
+				type='method'
+				name='stop'
+				exec=':kill'
+				timeout_seconds='300'/>
+		</instance>
+	</service>
+</service_bundle>
