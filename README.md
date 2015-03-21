@@ -29,6 +29,7 @@ This is a repice to install graphite, elasticsearch and grafana on solaris 11.2
     # cd graphite
 
 Change the RESOURCE_NAME variable in _install.sh_ to meet your needs, then run the script
+   
     # vi install.sh
     # bash -x install.sh
 
