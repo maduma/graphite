@@ -25,6 +25,7 @@ This is a repice to install graphite, elasticsearch and grafana on solaris 11.2
 - grafana serverd on port 80
 
 ## usage
+    # pkg install git
     # git clone https://github.com/maduma/graphite.git
     # cd graphite
 
