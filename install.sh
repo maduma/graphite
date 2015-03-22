@@ -75,8 +75,8 @@ cp config/config.js /opt/grafana/config.js
 cp config/httpd.conf /etc/apache2/2.2/httpd.conf # listen on 80 and 8080 
 cp config/elasticsearch-proxy.conf /etc/apache2/2.2/conf.d/elasticsearch-proxy.conf
 cp config/graphite-proxy.conf /etc/apache2/2.2/conf.d/graphite-proxy.conf
-cp config/graphite-vhost.conf /etc/apache2/2.2/conf.d/graphite-vhost.conf # port 80
-cp config/grafana-vhost.conf /etc/apache2/2.2/conf.d/grafana-vhost.conf # port 8080
+cp config/graphite-vhost.conf /etc/apache2/2.2/conf.d/graphite-vhost.conf # port 8080
+cp config/grafana-vhost.conf /etc/apache2/2.2/conf.d/grafana-vhost.conf # port 80
 
 # start mysql
 svcadm enable -s mysql:version_51
@@ -98,12 +98,12 @@ PYTHONPATH=/opt/graphite/webapp django-admin syncdb --noinput --settings=graphit
 # django static file
 PYTHONPATH=/opt/graphite/webapp django-admin collectstatic --noinput --settings=graphite.settings
 
+# change log directory permission for webservd
+chown -R webservd:webservd /opt/graphite/storage
+
 # start carbon - /opt/graphite/bin/carbon-cache.py start
 svccfg import svc/graphite.xml
 svcadm enable -s graphite-carbon
-
-# change log directory permission for webservd
-chown -R webservd:webservd /opt/graphite/storage
 
 # start memcached
 svcadm enable -s memcached
