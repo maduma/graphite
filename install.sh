@@ -59,7 +59,7 @@ unzip -qd /opt $LOCAL_REPO/grafana-1.9.1.zip
 mv /opt/grafana-1.9.1 /opt/grafana
 
 # data filesystems
-zfs create -o mounpoint=none rpool/data
+zfs create -o mountpoint=none rpool/data
 
 ## mysql
 zfs create -o mountpoint=/var/mysql/5.1/data rpool/data/mysql
