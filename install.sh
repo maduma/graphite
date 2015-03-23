@@ -58,6 +58,21 @@ svccfg import svc/elasticsearch.xml
 unzip -qd /opt $LOCAL_REPO/grafana-1.9.1.zip
 mv /opt/grafana-1.9.1 /opt/grafana
 
+# data filesystems
+zfs create -o mounpoint=none rpool/data
+
+## mysql
+zfs create -o mountpoint=/var/mysql/5.1/data rpool/data/mysql
+chmod 700 /var/mysql/5.1/data
+chown mysql:mysql /var/mysql/5.1/data
+
+## elasticsearch
+zfs create -o mountpoint=/opt/elasticsearch/data rpool/data/elasticsearch
+
+## graphite
+zfs create -o mountpoint=/opt/graphite/storage rpool/data/graphite
+chown webservd:webservd /opt/graphite/storage
+
 # config files
 
 ## graphite
@@ -98,9 +113,6 @@ PYTHONPATH=/opt/graphite/webapp django-admin syncdb --noinput --settings=graphit
 # django static file
 PYTHONPATH=/opt/graphite/webapp django-admin collectstatic --noinput --settings=graphite.settings
 
-# change log directory permission for webservd
-chown -R webservd:webservd /opt/graphite/storage
-
 # start carbon - /opt/graphite/bin/carbon-cache.py start
 svccfg import svc/graphite.xml
 svcadm enable -s graphite-carbon
@@ -114,3 +126,11 @@ svcadm enable -s elasticsearch
 # start apache
 svcadm enable -s apache22
 
+# create services.txt file
+cat > /root/services.txt <<EOF
+svc:/application/database/mysql:version_51
+svc:/maduma/elasticsearch:default
+svc:/application/database/memcached:default
+svc:/maduma/graphite-carbon:default
+svc:/network/http:apache22
+EOF
