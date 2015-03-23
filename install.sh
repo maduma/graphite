@@ -70,8 +70,11 @@ chown mysql:mysql /var/mysql/5.1/data
 zfs create -o mountpoint=/opt/elasticsearch/data rpool/data/elasticsearch
 
 ## graphite
+mv /opt/graphite/storage /opt/graphite/storage.tmp
 zfs create -o mountpoint=/opt/graphite/storage rpool/data/graphite
 chown webservd:webservd /opt/graphite/storage
+mv /opt/graphite/storage.tmp/* /opt/graphite/storage
+rmdir /opt/graphite/storage.tmp
 
 # config files
 
