@@ -44,10 +44,10 @@ pkg install pip
 pkg install --accept jre
 
 # pip packages
-pip install -f $LOCAL_REPO django-tagging
-pip install -f $LOCAL_REPO whisper
-pip install -f $LOCAL_REPO carbon
-pip install -f $LOCAL_REPO graphite-web
+pip install -f $LOCAL_REPO django-tagging==0.3.4
+pip install -f $LOCAL_REPO whisper==0.9.13
+pip install -f $LOCAL_REPO carbon==0.9.13
+pip install -f $LOCAL_REPO graphite-web==0.9.13
 
 # install elasticsearch
 unzip -qd /opt $LOCAL_REPO/elasticsearch-1.4.4.zip
